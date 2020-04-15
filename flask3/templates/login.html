@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class='content-section'>
+        <form method="POST" action="">
+            <!-- CSRF 또는 XSS 공격을 막기위한 코드 -->
+            {{ form.hidden_tag()}}
+            <fieldset class="form-group">
+                <legend class="boder-bottom mb-4">Log In</legend>
+                <div class="form-group">   
+                    {{ form.email.label(class="form-control-label") }}
+                    {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for errors in form.email.errors %}
+                                <span>{{errors}}</span>
+                            {%endfor%}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">   
+                    {{ form.password.label(class="form-control-label") }}
+                    {% if form.password.errors %}
+                        {{ form.password(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for errors in form.password.errors %}
+                                <span>{{errors}}</span>
+                            {%endfor%}
+                        </div>
+                    {% else %}
+                        {{ form.password(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-check">
+                    {{form.remember(class="form-check-input")}}
+                    {{form.remember.label(class="form-check-label")}}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+            <small class="text muted ml-2">
+                <a href="#">Forgot password?</a>
+            </small>
+        </form>
+    </div>
+    <div class="boder-top pt-3">
+        <small class="text-muted">
+            <!-- url_for는 python 에서 route Url이 아닌 Method를 의미하므로 주의-->
+            Need An Account? <a class="ml-2" href="{{ url_for('login')}}">Sign Up Now</a>
+        </small>
+    </div>
+{% endblock content %}
+<!-- 쉽게 구분하기 위해 블록의 이름을 붙여주는게 좋음-->
